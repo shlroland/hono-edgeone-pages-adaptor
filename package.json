@@ -1,5 +1,6 @@
 {
   "name": "hono-edgeone-pages-adaptor",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,5 +9,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "MIT",
+  "peerDependencies": {
+    "hono": "^4.6.12"
+  },
+  "devDependencies": {
+    "@edgeone/ef-types": "^1.0.5"
+  }
 }
