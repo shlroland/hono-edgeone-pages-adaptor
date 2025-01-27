@@ -9,7 +9,7 @@ jobs:
   test-and-publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
       - name: Checkout
@@ -43,6 +43,14 @@ jobs:
         run: deno run -A scripts/update-version.ts
         env:
           VERSION: ${{ env.VERSION }}
+
+      - name: Commit version update
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add deno.json
+          git commit -m "chore: update version to ${{ env.VERSION }}"
+          git push
 
       - name: Build NPM package
         run: deno task build
