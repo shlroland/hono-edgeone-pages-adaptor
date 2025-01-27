@@ -1,2 +1,1 @@
-lint-staged 
- tsc --noEmit
+deno run -A npm:lint-staged

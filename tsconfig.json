@@ -1,27 +1,27 @@
 {
   "compilerOptions": {
-      "target": "ESNext",
-      "module": "ESNext",
-      "moduleResolution": "Bundler",
-      "strict": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "isolatedModules": true,
-      "resolveJsonModule": true,
-      "lib": [
-          "ESNext",
-          "DOM"
-      ],
-      "rootDir": "src",
-      "outDir": "dist"
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "rootDir": "src",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "strict": true,
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   "types": ["@edgeone/ef-types"],
   "include": [
-      "src/**/*"
+    "src/**/*"
   ],
   "exclude": [
-      "node_modules",
-      "dist",
-      "**/*.test.ts"
+    "node_modules",
+    "dist",
+    "**/*.test.ts"
   ]
 }
