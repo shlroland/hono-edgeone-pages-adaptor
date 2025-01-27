@@ -13,7 +13,8 @@
   "tasks": {
     "build": "deno run -A scripts/build.ts",
     "publish:npm": "deno run -A scripts/publish-npm.ts",
-    "publish:jsr": "deno publish"
+    "publish:jsr": "deno publish",
+    "test": "deno test"
   },
   "imports": {
     "@commitlint/config-conventional": "npm:@commitlint/config-conventional@19.6.0",
@@ -24,6 +25,9 @@
     "cz-git": "npm:cz-git@1.9.0",
     "czg": "npm:czg@1.11.0",
     "hono": "jsr:@hono/hono@^4.6.19"
+  },
+  "compilerOptions": {
+    "types": ["npm:@edgeone/ef-types"]
   },
   "fmt": {
     "useTabs": false,
