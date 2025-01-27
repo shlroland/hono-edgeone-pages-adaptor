@@ -1,21 +1,29 @@
 {
+  "name": "@shlroland/hono-edgeone-pages",
+  "version": "0.0.1",
+  "exports": "./src/index.ts",
+  "publish": {
+    "exclude": [
+      "scripts/",
+      ".husky/",
+      ".gitignore",
+      "tsconfig.json"
+    ]
+  },
   "tasks": {
-    "dev": "deno run --allow-net --allow-read --watch main.ts",
-    "start": "deno run --allow-net --allow-read main.ts",
-    "test": "deno test --allow-net",
-    "lint": "deno lint",
-    "fmt": "deno fmt",
-    "pre-commit": "deno run --allow-run scripts/pre-commit.ts",
-    "commit": "deno run -A scripts/commit.ts"
+    "build": "deno run -A scripts/build.ts",
+    "publish:npm": "deno run -A scripts/publish-npm.ts",
+    "publish:jsr": "deno publish"
   },
   "imports": {
-    "@edgeone/ef-types": "npm:@edgeone/ef-types@1.0.5",
-    "hono": "jsr:@hono/hono@^4.6.19",
-    "@shlroland/cz-config": "npm:@shlroland/cz-config@2.1.2",
     "@commitlint/config-conventional": "npm:@commitlint/config-conventional@19.6.0",
+    "@deno/dnt": "jsr:@deno/dnt@^0.41.3",
+    "@edgeone/ef-types": "npm:@edgeone/ef-types@1.0.5",
+    "@shlroland/cz-config": "npm:@shlroland/cz-config@2.1.2",
     "commitlint-config-czg-gitmoji": "npm:commitlint-config-czg-gitmoji@0.0.2",
     "cz-git": "npm:cz-git@1.9.0",
-    "czg": "npm:czg@1.11.0"
+    "czg": "npm:czg@1.11.0",
+    "hono": "jsr:@hono/hono@^4.6.19"
   },
   "fmt": {
     "useTabs": false,

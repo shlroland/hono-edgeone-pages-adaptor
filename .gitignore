@@ -38,4 +38,6 @@ coverage/
 
 # Temporary files
 .tmp/
-.temp/ 
+.temp/
+
+npm/
