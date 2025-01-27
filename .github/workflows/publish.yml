@@ -1,0 +1,65 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Run Tests
+        run: deno test -A
+
+      - name: Run Type Check
+        run: deno check src/**/*.ts
+
+      - name: Run Lint
+        run: deno lint
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Update version in deno.json
+        run: |
+          deno run -A -e "
+          const text = await Deno.readTextFile('./deno.json');
+          const json = JSON.parse(text);
+          json.version = '${{ env.VERSION }}';
+          await Deno.writeTextFile('./deno.json', JSON.stringify(json, null, 2));
+          "
+
+      - name: Build NPM package
+        run: deno task build
+
+      - name: Update NPM package version
+        run: |
+          cd npm
+          npm version ${{ env.VERSION }} --no-git-tag-version
+
+      - name: Publish to NPM
+        run: deno task publish:npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to JSR
+        run: deno publish
