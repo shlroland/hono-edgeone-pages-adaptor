@@ -40,13 +40,9 @@ jobs:
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
       - name: Update version in deno.json
-        run: |
-          deno run -A -e "
-          const text = await Deno.readTextFile('./deno.json');
-          const json = JSON.parse(text);
-          json.version = '${{ env.VERSION }}';
-          await Deno.writeTextFile('./deno.json', JSON.stringify(json, null, 2));
-          "
+        run: deno run -A scripts/update-version.ts
+        env:
+          VERSION: ${{ env.VERSION }}
 
       - name: Build NPM package
         run: deno task build
